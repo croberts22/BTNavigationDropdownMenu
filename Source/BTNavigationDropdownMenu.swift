@@ -222,6 +222,7 @@ open class BTNavigationDropdownMenu: UIView {
     
     open var didSelectItemAtIndexHandler: ((_ indexPath: Int) -> ())?
     open var isShown: Bool!
+    open var shouldRotateArrow: Bool = false
 
     fileprivate weak var navigationController: UINavigationController?
     fileprivate var configuration = BTConfiguration()
@@ -453,11 +454,13 @@ open class BTNavigationDropdownMenu: UIView {
     }
     
     func rotateArrow() {
-        UIView.animate(withDuration: self.configuration.animationDuration, animations: {[weak self] () -> () in
-            if let selfie = self {
-                selfie.menuArrow.transform = selfie.menuArrow.transform.rotated(by: 180 * CGFloat(M_PI/180))
-            }
+        if shouldRotateArrow {
+            UIView.animate(withDuration: self.configuration.animationDuration, animations: {[weak self] () -> () in
+                if let selfie = self {
+                    selfie.menuArrow.transform = selfie.menuArrow.transform.rotated(by: 180 * CGFloat(M_PI/180))
+                }
             })
+        }
     }
     
     func setMenuTitle(_ title: String) {
